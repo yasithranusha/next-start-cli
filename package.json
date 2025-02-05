@@ -1,0 +1,29 @@
+{
+  "name": "next-start-cli",
+  "version": "1.0.0",
+  "description": "This is a CLI tool to create a nextjs project and add the necessary dependencies and configurations",
+  "keywords": [
+    "nextjs",
+    "shadcn-ui",
+    "tailwind"
+  ],
+  "license": "ISC",
+  "author": "Yasith Silva",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "next-start-cli": "./src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "chalk-animation": "^2.0.3",
+    "execa": "^9.5.2",
+    "figlet": "^1.8.0",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^12.4.1",
+    "nanospinner": "^1.2.2"
+  }
+}
