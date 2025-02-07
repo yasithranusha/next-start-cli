@@ -1,0 +1,17 @@
+{
+  "name": "login",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add Login Components?"
+  },
+  "files": [
+    {
+      "source": "components/login-form.tsx",
+      "destination": "src/components/login-form.tsx"
+    },
+    {
+      "source": "pages/login",
+      "destination": "src/app/login"
+    }
+  ]
+}

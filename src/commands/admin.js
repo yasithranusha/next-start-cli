@@ -1,6 +1,9 @@
 import { createSpinner } from "nanospinner";
 import { execa } from "execa";
 import chalk from "chalk";
+import { copyTemplateFiles } from "../utils/templateCopier.js";
+import { deleteFiles } from "../utils/deleteFile.js";
+import { setupLogin } from "./login.js";
 
 export const admindashboard = async () => {
   console.log(chalk.green("Adding admin dashboard components"));
@@ -11,7 +14,7 @@ export const admindashboard = async () => {
   sidebarSpinner.start();
   try {
     sidebarSpinner.stop();
-    await execa("npx", ["shadcn@latest", "add", "sidebar-07"], {
+    await execa("npx", ["shadcn@latest", "add", "sidebar-07", "--overwrite"], {
       stdio: "inherit",
     });
     sidebarSpinner.success({ text: "Sidebar component installed" });
@@ -22,18 +25,28 @@ export const admindashboard = async () => {
     process.exit(1);
   }
 
-  // Login installation
-  console.log(chalk.gray("─".repeat(50)));
-  const loginSpinner = createSpinner("Installing login component...");
-  loginSpinner.start();
   try {
-    loginSpinner.stop();
-    await execa("npx", ["shadcn@latest", "add", "login-02"], {
-      stdio: "inherit",
-    });
-    loginSpinner.success({ text: "Login component installed" });
+    await deleteFiles(process.cwd(), [
+      "src/app/dashboard/page.tsx",
+      "src/components/app-sidebar.tsx",
+      "src/components/nav-main.tsx",
+      "src/components/nav-projects.tsx",
+      "src/components/nav-user.tsx",
+      "src/hooks/use-mobile.tsx",
+    ]);
   } catch (error) {
-    loginSpinner.error({ text: `Failed to install login: ${error.message}` });
+    console.error(chalk.red(`Failed to delete files: ${error.message}`));
+    process.exit(1);
+  }
+
+  await setupLogin(process.cwd());
+
+  try {
+    const templateSpinner = createSpinner("Copying template files").start();
+    await copyTemplateFiles("admin", process.cwd());
+    templateSpinner.success({ text: "Sidebar Template files copied successfully" });
+  } catch (error) {
+    console.error(chalk.red(`Failed to copy template files: ${error.message}`));
     process.exit(1);
   }
 

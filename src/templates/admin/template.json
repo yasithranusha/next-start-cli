@@ -1,0 +1,53 @@
+{
+  "name": "admin",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add Admin Components?"
+  },
+  "files": [
+    {
+      "source": "components/sidebar",
+      "destination": "src/components/sidebar"
+    },
+    {
+      "source": "components/ui/sidebar.tsx",
+      "destination": "src/components/ui/sidebar.tsx"
+    },
+    {
+      "source": "config/next.config.ts",
+      "destination": "next.config.ts"
+    },
+    {
+      "source": "data",
+      "destination": "src/data"
+    },
+    {
+      "source": "enum",
+      "destination": "src/enum"
+    },
+    {
+      "source": "hooks",
+      "destination": "src/hooks"
+    },
+    {
+      "source": "types/components-props.ts",
+      "destination": "src/types/components-props.ts"
+    },
+    {
+      "source": "lib/role/functions.ts",
+      "destination": "src/lib/role/functions.ts"
+    },
+    {
+      "source": "pages/admin",
+      "destination": "src/app/admin"
+    },
+    {
+      "source": "pages/layout.tsx",
+      "destination": "src/app/layout.tsx"
+    },
+    {
+      "source": "middleware.ts",
+      "destination": "src/middleware.ts"
+    }
+  ]
+}
