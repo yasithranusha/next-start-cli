@@ -1,6 +1,6 @@
 {
   "name": "next-start-cli",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "This is a CLI tool to create a nextjs project and add the necessary dependencies and configurations",
   "keywords": [
     "nextjs",
