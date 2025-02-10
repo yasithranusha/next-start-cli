@@ -14,10 +14,6 @@
       "destination": "src/components/ui/sidebar.tsx"
     },
     {
-      "source": "config/next.config.ts",
-      "destination": "next.config.ts"
-    },
-    {
       "source": "data",
       "destination": "src/data"
     },
@@ -40,10 +36,6 @@
     {
       "source": "pages/admin",
       "destination": "src/app/admin"
-    },
-    {
-      "source": "pages/layout.tsx",
-      "destination": "src/app/layout.tsx"
     },
     {
       "source": "middleware.ts",
