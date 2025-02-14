@@ -1,0 +1,37 @@
+{
+  "name": "form-table",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add form and table components?"
+  },
+  "files": [
+    {
+      "source": "components/calendar.tsx",
+      "destination": "src/components/ui/calendar.tsx"
+    },
+    {
+      "source": "components/admin",
+      "destination": "src/components/admin"
+    },
+    {
+      "source": "components/data-table",
+      "destination": "src/components/data-table"
+    },
+    {
+      "source": "components/dialog",
+      "destination": "src/components/dialog"
+    },
+    {
+      "source": "pages/users",
+      "destination": "src/app/admin/users"
+    },
+    {
+      "source": "schema",
+      "destination": "src/schema"
+    },    
+    {
+      "source": "types",
+      "destination": "src/types"
+    }
+  ]
+}
