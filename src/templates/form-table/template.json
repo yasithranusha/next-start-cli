@@ -38,8 +38,12 @@
       "destination": "src/action"
     },
     {
-      "source": "lib/role",
-      "destination": "src/lib/role"
+      "source": "lib/consconstants.ts",
+      "destination": "src/lib/constants.ts"
+    },
+    {
+      "source": "lib/format.ts",
+      "destination": "src/lib/format.ts"
     }
   ]
 }
