@@ -37,6 +37,8 @@ export const setupFormTable = async (projectPath) => {
         "add",
         "form",
         "popover",
+        "badge",
+        "dialog",
         "scroll-area",
         "select",
         "table",

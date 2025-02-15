@@ -28,10 +28,18 @@
     {
       "source": "schema",
       "destination": "src/schema"
-    },    
+    },
     {
       "source": "types",
       "destination": "src/types"
+    },
+    {
+      "source": "action",
+      "destination": "src/action"
+    },
+    {
+      "source": "lib/role",
+      "destination": "src/lib/role"
     }
   ]
 }
