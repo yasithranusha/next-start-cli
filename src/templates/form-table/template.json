@@ -38,7 +38,7 @@
       "destination": "src/action"
     },
     {
-      "source": "lib/consconstants.ts",
+      "source": "lib/constants.ts",
       "destination": "src/lib/constants.ts"
     },
     {
