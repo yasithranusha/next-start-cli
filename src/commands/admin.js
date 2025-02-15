@@ -4,6 +4,7 @@ import chalk from "chalk";
 import { copyTemplateFiles } from "../utils/templateCopier.js";
 import { deleteFiles } from "../utils/deleteFile.js";
 import { setupLogin } from "./login.js";
+import { setupFormTable } from "./form-table.js";
 
 export const admindashboard = async () => {
   console.log(chalk.green("Adding admin dashboard components"));
@@ -40,6 +41,7 @@ export const admindashboard = async () => {
   }
 
   await setupLogin(process.cwd());
+  await setupFormTable(process.cwd());
 
   try {
     const templateSpinner = createSpinner("Copying template files").start();
