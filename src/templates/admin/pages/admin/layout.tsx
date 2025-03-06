@@ -14,12 +14,13 @@ export default async function Layout({
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 
   //Todo: Get the user role from session
+  const userRole = UserRoles.ADMIN;
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar role={ UserRoles.ADMIN} />
+      <AppSidebar role={userRole} />
       <main className="w-full">
-        <AdminHeaderContent role={UserRoles.ADMIN} />
+        <AdminHeaderContent role={userRole} />
         <div className="p-4">{children}</div>
       </main>
     </SidebarProvider>

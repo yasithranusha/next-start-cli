@@ -1,0 +1,53 @@
+{
+  "name": "client",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add Client Components?"
+  },
+  "files": [
+    {
+      "source": "pages/(client)",
+      "destination": "src/app/(client)"
+    },
+    {
+      "source": "components/layout",
+      "destination": "src/components/layout"
+    },
+    {
+      "source": "components/ui/accordion.tsx",
+      "destination": "src/components/ui/accordion.tsx"
+    },
+    {
+      "source": "components/ui/navigation-menu.tsx",
+      "destination": "src/components/ui/navigation-menu.tsx"
+    },
+    {
+      "source": "data/routes/client-menu.ts",
+      "destination": "src/data/routes/client-menu.ts"
+    },
+    {
+      "source": "data/routes/client-menu.ts",
+      "destination": "src/data/routes/client-menu.ts"
+    },
+    {
+      "source": "data/routes/client-menu.ts",
+      "destination": "src/data/routes/client-menu.ts"
+    },
+    {
+      "source": "data/brand.ts",
+      "destination": "src/data/brand.ts"
+    },
+    {
+      "source": "hooks/use-nav-routes.ts",
+      "destination": "src/hooks/use-nav-routes.ts"
+    },
+    {
+      "source": "lib/client/routes.ts",
+      "destination": "src/lib/client/routes.ts"
+    },
+    {
+      "source": "types/navigation.ts",
+      "destination": "src/types/navigation.ts"
+    }
+  ]
+}

@@ -4,16 +4,18 @@ import { createNextJsApp } from "./commands/createNextApp.js";
 import { shadcnui } from "./commands/shadcnUI.js";
 import { shadcnComponents } from "./commands/shadcnComponents.js";
 import { admindashboard } from "./commands/admin.js";
+import { clientSetup } from "./commands/client.js";
 
 const parseArgs = () => {
   const args = process.argv;
   return {
-    isAdmin: args.includes('--admin') || args.includes('-a')
+    isAdmin: args.includes('--admin') || args.includes('-a'),
+    noGit: args.includes('--no-git')
   };
 };
 
 export const run = async () => {
-  const { isAdmin } = parseArgs();
+  const { isAdmin, noGit } = parseArgs();
 
   process.on("SIGINT", () => {
     console.log("\nExiting CLI...");
@@ -32,8 +34,12 @@ export const run = async () => {
     await shadcnComponents();
 
     console.clear();
+    await clientSetup();
+    
+
+    console.clear();
     if (isAdmin) {
-      await admindashboard();
+      await admindashboard(noGit);
     }
   } catch (error) {
     if (error.message.includes("User force closed the prompt")) {

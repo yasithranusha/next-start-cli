@@ -31,6 +31,14 @@ With admin dashboard:
 next-start-cli --admin
 ```
 
+Without git commiting changes made by CLI tool:
+```sh
+next-start-cli --no-git
+```
+Note:
+#### Use ```--no-git``` when tesing locally for development
+
+<br>
 The CLI will guide you through:
 
 - Project name selection
@@ -55,6 +63,7 @@ my-app/
 ## Options
 
 - `--admin` or `-a`: Includes admin dashboard components
+- `--no-git`: Skit changes commiting in CLI tool
 
 ## Development
 

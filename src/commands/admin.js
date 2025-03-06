@@ -6,7 +6,7 @@ import { deleteFiles } from "../utils/deleteFile.js";
 import { setupLogin } from "./login.js";
 import { setupFormTable } from "./form-table.js";
 
-export const admindashboard = async () => {
+export const admindashboard = async (noGit = false) => {
   console.log(chalk.green("Adding admin dashboard components"));
   console.log(chalk.gray("─".repeat(50)));
 
@@ -41,7 +41,7 @@ export const admindashboard = async () => {
   }
 
   await setupLogin(process.cwd());
-  await setupFormTable(process.cwd());
+  await setupFormTable(process.cwd(), noGit);
 
   try {
     const templateSpinner = createSpinner("Copying template files").start();
