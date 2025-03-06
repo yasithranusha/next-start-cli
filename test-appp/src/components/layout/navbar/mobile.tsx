@@ -93,7 +93,7 @@ export function MobileNavMenu({
                   <Link
                     href={menu.href}
                     className={cn(
-                      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors",
                       pathname === menu.href
                         ? "bg-accent text-accent-foreground"
                         : "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"

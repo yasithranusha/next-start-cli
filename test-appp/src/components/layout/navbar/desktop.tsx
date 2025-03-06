@@ -16,7 +16,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { IMenueItem } from "@/types/navigation";
 
-export function DesktopNavMenu({ navBarRoutes }: Readonly<{ navBarRoutes: IMenueItem[] }>)  {
+export function DesktopNavMenu({
+  navBarRoutes,
+}: Readonly<{ navBarRoutes: IMenueItem[] }>) {
   const filteredNavMenues = navBarRoutes;
 
   return (
@@ -69,7 +71,7 @@ const ListItem = forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors",
             isActive
               ? "bg-accent text-accent-foreground"
               : "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
