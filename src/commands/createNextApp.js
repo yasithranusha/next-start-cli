@@ -14,7 +14,7 @@ export const createNextJsApp = async () => {
       "npx",
       [
         `create-next-app${
-          nextJsVersion !== "latest" ? `@${nextJsVersion}` : ""
+          nextJsVersion !== "latest" ? `@${nextJsVersion}` : "@latest"
         }`,
         projectName,
         "--use-yarn",

@@ -5,7 +5,7 @@ import path from "path";
 import fs from "fs/promises";
 import { copyTemplateFiles } from "../utils/templateCopier.js";
 
-export const setupFormTable = async (projectPath) => {
+export const setupFormTable = async (projectPath, noGit = false) => {
   // Install dependencies
   const depsSpinner = createSpinner(
     "Installing required dependencies..."
@@ -98,26 +98,30 @@ export const setupFormTable = async (projectPath) => {
       text: "Form and Table template files copied successfully",
     });
 
-    // Add git commit with proper spinner initialization
-    const commitSpinner = createSpinner("Committing changes...").start();
-    try {
-      await execa("git", ["add", "."]);
-      await execa("git", [
-        "commit",
-        "-m",
-        "feat: add form and table components",
-      ]);
-      commitSpinner.success({
-        text: "Form and Table files committed successfully",
-      });
-    } catch (error) {
-      commitSpinner.error({
-        text: `Failed to commit files: ${error.message}`,
-      });
-      console.error(chalk.yellow("Continuing with setup..."));
+    // Add git commit only if noGit is false
+    if (!noGit) {
+      const commitSpinner = createSpinner("Committing changes...").start();
+      try {
+        await execa("git", ["add", "."]);
+        await execa("git", [
+          "commit",
+          "-m",
+          "feat: add form and table components",
+        ]);
+        commitSpinner.success({
+          text: "Form and Table files committed successfully",
+        });
+      } catch (error) {
+        commitSpinner.error({
+          text: `Failed to commit files: ${error.message}`,
+        });
+        console.error(chalk.yellow("Continuing with setup..."));
+      }
+    } else {
+      console.log(
+        chalk.yellow("Skipping git commit as --no-git flag was provided")
+      );
     }
-
-
   } catch (error) {
     layoutSpinner.error({ text: `Failed to update layout: ${error.message}` });
     console.error(

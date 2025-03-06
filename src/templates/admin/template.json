@@ -10,10 +10,6 @@
       "destination": "src/components/sidebar"
     },
     {
-      "source": "components/ui/sidebar.tsx",
-      "destination": "src/components/ui/sidebar.tsx"
-    },
-    {
       "source": "data",
       "destination": "src/data"
     },
