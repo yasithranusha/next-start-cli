@@ -14,14 +14,6 @@
       "destination": "src/components/layout"
     },
     {
-      "source": "components/ui/accordion.tsx",
-      "destination": "src/components/ui/accordion.tsx"
-    },
-    {
-      "source": "components/ui/navigation-menu.tsx",
-      "destination": "src/components/ui/navigation-menu.tsx"
-    },
-    {
       "source": "data/routes/client-menu.ts",
       "destination": "src/data/routes/client-menu.ts"
     },

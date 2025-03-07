@@ -41,7 +41,7 @@ export const shadcnComponents = async () => {
     );
 
     const buttonSpinner = createSpinner(
-      "Installing button component..."
+      "Installing only button component..."
     ).start();
     try {
       await execa("npx", ["shadcn@latest", "add", "button"]);

@@ -26,6 +26,78 @@ export const clientSetup = async (projectPath) => {
     process.exit(1);
   }
 
+  // Add optional border prop to AccordionItem
+  const updateAccordionSpinner = createSpinner(
+    "Updating Accordion component..."
+  ).start();
+  try {
+    const accordionPath = path.join(
+      process.cwd(),
+      "src",
+      "components",
+      "ui",
+      "accordion.tsx"
+    );
+    let accordionContent = await fs.readFile(accordionPath, "utf8");
+
+    // Update AccordionItem props interface to include optional border prop
+    accordionContent = accordionContent.replace(
+      /function AccordionItem\(\{\s*className,\s*\.\.\.(props|props)\s*\}: React\.ComponentProps<typeof AccordionPrimitive\.Item>\) \{/,
+      `function AccordionItem({
+    className,
+    hideBorder = false,
+    ...props
+  }: React.ComponentProps<typeof AccordionPrimitive.Item> & { hideBorder?: boolean }) {`
+    );
+
+    // Update border class to be conditional based on hideBorder prop
+    accordionContent = accordionContent.replace(
+      /className=\{cn\("border-b last:border-b-0", className\)\}/,
+      `className={cn(hideBorder ? "" : "border-b last:border-b-0", className)}`
+    );
+
+    await fs.writeFile(accordionPath, accordionContent, "utf8");
+    updateAccordionSpinner.success({
+      text: "Updated Accordion component with hideBorder prop",
+    });
+  } catch (error) {
+    updateAccordionSpinner.error({
+      text: `Failed to update Accordion component: ${error.message}`,
+    });
+    console.error(chalk.red(`Error details: ${error.stack}`));
+  }
+  
+  // Update NavigationMenu component
+  const updateNavMenuSpinner = createSpinner(
+    "Updating Navigation Menu component..."
+  ).start();
+  try {
+    const navMenuPath = path.join(
+      process.cwd(),
+      "src",
+      "components",
+      "ui",
+      "navigation-menu.tsx"
+    );
+    let navMenuContent = await fs.readFile(navMenuPath, "utf8");
+
+    // Change left-0 to right-0 in NavigationMenuViewport
+    navMenuContent = navMenuContent.replace(
+      /absolute top-full left-0/,
+      "absolute top-full right-0"
+    );
+
+    await fs.writeFile(navMenuPath, navMenuContent, "utf8");
+    updateNavMenuSpinner.success({
+      text: "Updated Navigation Menu component alignment",
+    });
+  } catch (error) {
+    updateNavMenuSpinner.error({
+      text: `Failed to update Navigation Menu component: ${error.message}`,
+    });
+    console.error(chalk.red(`Error details: ${error.stack}`));
+  }
+
   try {
     const templateSpinner = createSpinner("Copying template files").start();
     await copyTemplateFiles("client", process.cwd());
