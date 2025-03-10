@@ -18,11 +18,15 @@ export default async function Layout({
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar role={userRole} />
-      <main className="w-full">
-        <AdminHeaderContent role={userRole} />
-        <div className="p-4">{children}</div>
-      </main>
+      <div className="flex h-screen w-screen overflow-hidden">
+        <AppSidebar role={userRole} />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <AdminHeaderContent role={userRole} />
+          <div className="flex-1 overflow-auto p-4">
+            <div className="container mx-auto">{children}</div>
+          </div>
+        </div>
+      </div>
     </SidebarProvider>
   );
 }

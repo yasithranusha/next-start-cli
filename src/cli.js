@@ -5,6 +5,7 @@ import { shadcnui } from "./commands/shadcnUI.js";
 import { shadcnComponents } from "./commands/shadcnComponents.js";
 import { admindashboard } from "./commands/admin.js";
 import { clientSetup } from "./commands/client.js";
+import { setupInfra } from "./commands/infra.js";
 
 const parseArgs = () => {
   const args = process.argv;
@@ -24,7 +25,7 @@ export const run = async () => {
 
   try {
     await showWelcomeMessage();
-    await getProjectDetails();
+    const project = await getProjectDetails();
     await createNextJsApp();
 
     console.clear();
@@ -41,6 +42,10 @@ export const run = async () => {
     if (isAdmin) {
       await admindashboard(noGit);
     }
+
+    console.clear();
+    await setupInfra(project);
+
   } catch (error) {
     if (error.message.includes("User force closed the prompt")) {
       console.log("\nOperation cancelled by user");

@@ -3,31 +3,84 @@ import { execa } from "execa";
 import { projectName, nextJsVersion } from "../utils/config.js";
 import fs from "fs/promises";
 import path from "path";
+import chalk from "chalk";
+import inquirer from "inquirer"; 
 
-export const createNextJsApp = async () => {
+export const createNextJsApp = async (noGit = false) => {
+  // Check if yarn is installed
+  const yarnCheckSpinner = createSpinner(
+    "Checking for yarn installation"
+  ).start();
+  try {
+    await execa("yarn", ["--version"], { stdio: "ignore" });
+    yarnCheckSpinner.success({ text: "Yarn is installed. Proceeding project with yarn" });
+  } catch (error) {
+    yarnCheckSpinner.error({ text: "Yarn is not installed" });
+    console.log(
+      chalk.yellow(
+        "This CLI uses yarn to set up projects. Please install yarn first."
+      )
+    );
+    console.log(chalk.blue("You can install yarn using:"));
+    console.log(chalk.green("npm install -g yarn"));
+
+    const { installYarn } = await inquirer.prompt({
+      // Use inquirer.prompt instead
+      type: "confirm",
+      name: "installYarn",
+      message: "Would you like to install yarn now?",
+      default: true,
+    });
+
+    if (installYarn) {
+      const installSpinner = createSpinner("Installing yarn...").start();
+      try {
+        await execa("npm", ["install", "-g", "yarn"], { stdio: "inherit" });
+        installSpinner.success({ text: "Yarn installed successfully" });
+      } catch (error) {
+        installSpinner.error({
+          text: `Failed to install yarn: ${error.message}`,
+        });
+        console.log(chalk.red("Please install yarn manually and try again."));
+        process.exit(1);
+      }
+    } else {
+      console.log(
+        chalk.red(
+          "Yarn is required to continue. Please install yarn and try again."
+        )
+      );
+      process.exit(1);
+    }
+  }
+
   const spinner = createSpinner("Initializing Next.js app creation");
   spinner.start();
 
   try {
     spinner.stop();
-    await execa(
-      "npx",
-      [
-        `create-next-app${
-          nextJsVersion !== "latest" ? `@${nextJsVersion}` : "@latest"
-        }`,
-        projectName,
-        "--use-yarn",
-        "--tailwind",
-        "--eslint",
-        "--app",
-        "--src-dir",
-        "--import-alias",
-        "@/*",
-      ],
-      { stdio: "inherit" }
-    );
+    const commandArgs = [
+      `create-next-app${
+        nextJsVersion !== "latest" ? `@${nextJsVersion}` : "@latest"
+      }`,
+      projectName,
+      "--use-yarn",
+      "--tailwind",
+      "--eslint",
+      "--app",
+      "--src-dir",
+      "--import-alias",
+      "@/*",
+    ];
+    
+    // Add the --no-git flag if requested
+    if (noGit) {
+      commandArgs.push("--no-git");
+    }
+    
+    await execa("npx", commandArgs, { stdio: "inherit" });
 
+    // Rest of your code remains the same...
     // Update next.config.ts with new configuration
     const nextConfigContent = `import type { NextConfig } from "next";
 

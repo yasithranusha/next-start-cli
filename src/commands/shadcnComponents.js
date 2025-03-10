@@ -5,7 +5,7 @@ import { createSpinner } from "nanospinner";
 
 export const shadcnComponents = async () => {
   console.log(chalk.gray("─".repeat(50)));
-  console.log(chalk.blue("Adding Shadcn component"));
+  console.log(chalk.green.bold("Adding Shadcn component"));
   console.log(
     chalk.gray(
       "For more information about shadcn components visit: https://ui.shadcn.com/docs/components/\n"
@@ -24,14 +24,16 @@ export const shadcnComponents = async () => {
   ]);
 
   if (shouldAddComponents) {
-    const spinner = createSpinner("Installing Shadcn components...").start();
+    console.log(chalk.yellow("Starting component selection..."));
     try {
       await execa("npx", ["shadcn@latest", "add"], {
         stdio: "inherit",
       });
-      spinner.success({ text: "Components installed successfully!" });
+      console.log(chalk.green("Components installed successfully!"));
     } catch (error) {
-      spinner.error({ text: `Failed to install components: ${error.message}` });
+      console.error(
+        chalk.red(`Failed to install components: ${error.message}`)
+      );
       process.exit(1);
     }
   } else {
@@ -41,7 +43,7 @@ export const shadcnComponents = async () => {
     );
 
     const buttonSpinner = createSpinner(
-      "Installing only button component..."
+      "Installing only button component as a reffernce..."
     ).start();
     try {
       await execa("npx", ["shadcn@latest", "add", "button"]);

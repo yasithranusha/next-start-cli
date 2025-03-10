@@ -1,0 +1,28 @@
+{
+  "name": "infra",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add Infrastrucure files?"
+  },
+  "files": [
+    {
+      "source": "/Dockerfile.dev",
+      "destination": "/Dockerfile.dev"
+    },
+    {
+      "source": "/Dockerfile.prod",
+      "destination": "/Dockerfile.prod"
+    },
+    {
+      "source": "/docker-compose.yml",
+      "destination": "/docker-compose.yml"
+    },
+    {
+      "source": "/.dockerignore",
+      "destination": "/.dockerignore"
+    },    {
+      "source": "/scripts",
+      "destination": "/scripts"
+    }
+  ]
+}

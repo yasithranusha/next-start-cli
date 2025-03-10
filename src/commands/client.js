@@ -15,7 +15,13 @@ export const clientSetup = async (projectPath) => {
     loginSpinner.stop();
     await execa(
       "npx",
-      ["shadcn@latest", "add", "accordion", "navigation-menu"],
+      [
+        "shadcn@latest",
+        "add",
+        "accordion",
+        "navigation-menu",
+        "sheet"
+      ],
       {
         stdio: "inherit",
       }

@@ -27,4 +27,6 @@ export const getProjectDetails = async () => {
   const answers = await inquirer.prompt(questions);
   projectName = answers.projectName;
   nextJsVersion = answers.nextJsVersion;
+  
+  return projectName;
 };

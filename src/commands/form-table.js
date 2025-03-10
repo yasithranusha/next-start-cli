@@ -63,7 +63,7 @@ export const setupFormTable = async (projectPath, noGit = false) => {
 
   try {
     const envSpinner = createSpinner("Creating .env file...").start();
-    const envPath = path.join(process.cwd(), ".env");
+    const envPath = path.join(process.cwd(), ".env.local");
     const envContent = "BASE_URL=http://localhost:3001/api";
 
     await fs.writeFile(envPath, envContent, "utf8");

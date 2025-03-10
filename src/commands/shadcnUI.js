@@ -21,7 +21,7 @@ export const shadcnui = async () => {
       );
       console.log(
         chalk.blue(
-          "Note: Theme is just a tailwindcss configuration it can also be changed later in global.css file"
+          "Note: Theme is just a tailwindcss variable configuration, you can change it later from src/app/globals.css"
         )
       );
 
