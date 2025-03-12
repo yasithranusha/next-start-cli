@@ -44,7 +44,7 @@ export const run = async () => {
     }
 
     console.clear();
-    await setupInfra(project);
+    await setupInfra(project,noGit);
 
   } catch (error) {
     if (error.message.includes("User force closed the prompt")) {

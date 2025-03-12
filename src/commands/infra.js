@@ -6,7 +6,7 @@ import { execa } from "execa";
 import inquirer from "inquirer";
 import { copyTemplateFiles } from "../utils/templateCopier.js";
 
-export const setupInfra = async (project) => {
+export const setupInfra = async (project, noGit = false) => {
   console.log(chalk.gray("─".repeat(50)));
   console.log(chalk.green(`Setting up Docker infrastructure for ${project}`));
 
@@ -139,6 +139,44 @@ APP_NAME=${project}`;
           "Note: Couldn't make start-docker.sh executable. You may need to run: chmod +x scripts/start-docker.sh"
         )
       );
+    }
+
+    if (!noGit) {
+      const gitSpinner = createSpinner(
+        "Creating git commit for Docker setup"
+      ).start();
+      try {
+        // Check if git is initialized
+        await execa("git", ["rev-parse", "--is-inside-work-tree"]);
+
+        // Stage the Docker files
+        await execa("git", [
+          "add",
+          "Dockerfile.dev",
+          "Dockerfile.prod",
+          "docker-compose.yml",
+          ".dockerignore",
+          ".env.local",
+          "scripts/start-docker.sh",
+        ]);
+
+        // Create conventional commit
+        await execa("git", [
+          "commit",
+          "--m",
+          "feat(docker): add Docker infrastructure",
+        ]);
+        gitSpinner.success({ text: "Created git commit for Docker setup" });
+      } catch (gitError) {
+        gitSpinner.error({
+          text: `Could not create git commit: ${gitError.message}`,
+        });
+        console.log(
+          chalk.yellow(
+            "Note: Git repository may not be initialized or git is not installed."
+          )
+        );
+      }
     }
   } catch (error) {
     console.error(
