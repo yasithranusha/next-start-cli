@@ -4,7 +4,10 @@ import { UserDetailsSchema } from "@/schema/user/user-details";
 import * as z from "zod";
 import { BASE_URL } from "@/lib/constants";
 import { revalidatePath } from "next/cache";
-import { getAllUsersResponse } from "@/types/user/users";
+import {
+  getAllUsersResponse,
+  getAllUserRquestParams,
+} from "@/types/user/users";
 
 type ActionResponse = {
   success: boolean;
@@ -121,16 +124,38 @@ export async function updateUser(
   }
 }
 
-export async function getUsers(params: {
-  page: number;
-  limit: number;
-  sort: string;
-  email: string;
-}): Promise<getAllUsersResponse> {
-  const response = await fetch(
-    `${BASE_URL}/user?page=${params.page}&limit=${params.limit}&sort=${params.sort}&email=${params.email}`
-  );
+export async function getUsers(
+  params: getAllUserRquestParams
+): Promise<getAllUsersResponse> {
+  // Build URL with query parameters
+  const url = new URL(`${BASE_URL}/user`);
 
+  // Add required parameters
+  url.searchParams.append("page", params.page.toString());
+  url.searchParams.append("limit", params.limit.toString());
+
+  // Add optional parameters only if they exist
+  if (params.sort) url.searchParams.append("sort", params.sort);
+  if (params.email) url.searchParams.append("email", params.email);
+
+  // Handle array parameters
+  if (params.role && params.role.length > 0) {
+    params.role.forEach((role) => {
+      url.searchParams.append("role", role);
+    });
+  }
+
+  if (params.status && params.status.length > 0) {
+    params.status.forEach((status) => {
+      url.searchParams.append("status", status);
+    });
+  }
+
+  // Add date range parameters if they exist
+  if (params.startDate) url.searchParams.append("startDate", params.startDate);
+  if (params.endDate) url.searchParams.append("endDate", params.endDate);
+
+  const response = await fetch(url.toString());
   const responseData = await response.json();
 
   if (!response.ok) {

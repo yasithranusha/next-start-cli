@@ -117,9 +117,8 @@ export const setupInfra = async (project, noGit = false) => {
     const envSpinner = createSpinner(
       "Creating Docker environment file"
     ).start();
-    const envContent = `NODE_VERSION=${nodeVersion}
-YARN_VERSION=${yarnVersion}
-APP_NAME=${project}`;
+
+    const envContent = `BASE_URL=http://localhost:3001/api`;
 
     await fs.writeFile(
       path.join(process.cwd(), ".env.local"),

@@ -24,6 +24,20 @@ interface DataTablePaginationProps {
   replace: (url: string) => void;
 }
 
+function PaginationIndicator({
+  pageIndex,
+  pageCount,
+}: {
+  pageIndex: number;
+  pageCount: number;
+}) {
+  return (
+    <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+      Page {pageIndex} of {pageCount}
+    </div>
+  );
+}
+
 export function DataTablePagination({
   pageCount,
   pageIndex,
@@ -52,7 +66,7 @@ export function DataTablePagination({
         enableSelect ? "justify-between" : "justify-center"
       } px-2 py-4`}
     >
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex flex-col lg:flex-row items-center gap-2 lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
@@ -71,8 +85,8 @@ export function DataTablePagination({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {pageIndex} of {pageCount}
+        <div className="hidden lg:block">
+          <PaginationIndicator pageIndex={pageIndex} pageCount={pageCount} />
         </div>
         <div className="flex items-center space-x-2">
           <Button
@@ -91,6 +105,9 @@ export function DataTablePagination({
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
+          <div className="block lg:hidden">
+            <PaginationIndicator pageIndex={pageIndex} pageCount={pageCount} />
+          </div>
           <Button
             variant="outline"
             className="h-8 w-8 p-0"

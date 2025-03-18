@@ -1,6 +1,6 @@
 import { Column } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
-
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,10 +30,21 @@ export function DataTableColumnHeader<TData, TValue>({
   descPlaceholder = "Desc",
   hidePlaceholder = "Hide",
 }: DataTableColumnHeaderProps<TData, TValue>) {
-  
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  // Monitor search params for changes and reset sorting when they're cleared
+  useEffect(() => {
+    // If sort parameters were removed (like after clicking reset filters)
+    const sortParam = searchParams.get("sort");
+
+    // If this column is sorted but there's no sort param in URL,
+    // or if another column is now sorted, reset this column's sort
+    if (column.getIsSorted() && (!sortParam || sortParam !== column.id)) {
+      column.clearSorting();
+    }
+  }, [searchParams, column]);
 
   const handleSort = (desc: boolean) => {
     const params = new URLSearchParams(searchParams);

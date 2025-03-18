@@ -27,7 +27,7 @@ export default function AdminHeaderContent({ role }: AdminHeaderContentProps) {
       <Separator orientation="vertical" className="mr-2 h-4" />
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbItem className="line-clamp-1">
             <BreadcrumbPage>{pathOne?.title}</BreadcrumbPage>
           </BreadcrumbItem>
           {pathTwo && <BreadcrumbSeparator className="hidden md:block" />}

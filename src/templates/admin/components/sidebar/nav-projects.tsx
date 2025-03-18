@@ -67,7 +67,7 @@ export function NavProjects({
                       <Link
                         href={subItem.url}
                         target={subItem.linkTarget || "_self"}
-                        className="flex items-center gap-2 cursor-pointer"
+                        className="flex items-center gap-2 "
                       >
                         {subItem.icon && <subItem.icon size="20" />}
                         <span>{subItem.title}</span>

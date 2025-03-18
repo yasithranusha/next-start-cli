@@ -42,6 +42,8 @@ export const setupFormTable = async (projectPath, noGit = false) => {
         "scroll-area",
         "select",
         "table",
+        "checkbox",
+        "command",
         "calendar",
         "sonner",
         "--overwrite",

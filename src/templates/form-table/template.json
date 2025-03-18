@@ -44,6 +44,9 @@
     {
       "source": "lib/format.ts",
       "destination": "src/lib/format.ts"
+    },    {
+      "source": "data/admin-users/filters.ts",
+      "destination": "src/data/admin-users/filters.ts"
     }
   ]
 }
