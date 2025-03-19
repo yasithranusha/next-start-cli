@@ -66,7 +66,11 @@ my-app/
 
 ## Options
 
-- `--admin` or `-a`: Includes admin dashboard components
+- `--admin` or `-a`: Includes admin dashboard components. To remove the mock API, delete the `src/app/(server)` folder and remove `bcrypt` and `nedb` dependencies along with their types using the following command:
+  ```sh
+  rm -rf "src/app/(server)" && yarn remove bcrypt nedb @types/bcrypt @types/nedb
+  ```
+
 - `--no-git`: Skip changes committing in CLI tool
 
 ## Development

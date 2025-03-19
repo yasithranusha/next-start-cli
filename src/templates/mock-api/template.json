@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "mock-api",
   "prompt": {
     "type": "confirm",
     "message": "Would you like to add a mock API?"
