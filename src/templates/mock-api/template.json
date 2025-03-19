@@ -1,0 +1,13 @@
+{
+  "name": "api",
+  "prompt": {
+    "type": "confirm",
+    "message": "Would you like to add a mock API?"
+  },
+  "files": [
+    {
+      "source": "(server)",
+      "destination": "src/app/(server)"
+    }
+  ]
+}

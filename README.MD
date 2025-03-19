@@ -31,12 +31,12 @@ With admin dashboard:
 next-start-cli --admin
 ```
 
-Without git commiting changes made by CLI tool:
+Without git committing changes made by CLI tool:
 ```sh
 next-start-cli --no-git
 ```
 Note:
-#### Use ```--no-git``` when tesing locally for development
+#### Use ```--no-git``` when testing locally for development
 
 <br>
 The CLI will guide you through:
@@ -45,6 +45,10 @@ The CLI will guide you through:
 - Next.js version selection
 - shadcn/ui theme configuration
 - Component installation
+
+After creating the project, use `src/data/routes` file and modify the routes as the project requires. All the routes related to the admin dashboard, navbar, and footer routes can be found there.
+
+Then use `src/data/brand.ts` file to modify project details such as project name, logo, and other related data.
 
 ## Project Structure
 
@@ -63,7 +67,7 @@ my-app/
 ## Options
 
 - `--admin` or `-a`: Includes admin dashboard components
-- `--no-git`: Skit changes commiting in CLI tool
+- `--no-git`: Skip changes committing in CLI tool
 
 ## Development
 

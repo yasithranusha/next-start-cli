@@ -100,6 +100,12 @@ export const setupFormTable = async (projectPath, noGit = false) => {
       text: "Form and Table template files copied successfully",
     });
 
+    const templateSpinnerApi = createSpinner("Copying mock API template files").start();
+    await copyTemplateFiles("api", process.cwd(), true);
+    templateSpinnerApi.success({
+      text: "Mock API template files copied successfully",
+    });
+
     // Add git commit only if noGit is false
     if (!noGit) {
       const commitSpinner = createSpinner("Committing changes...").start();
