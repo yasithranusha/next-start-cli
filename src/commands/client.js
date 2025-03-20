@@ -121,4 +121,30 @@ export const clientSetup = async (projectPath) => {
     console.error(chalk.red(`Failed to delete files: ${error.message}`));
     process.exit(1);
   }
+
+    try {
+      await deleteFiles(process.cwd(), ["src/app/page.tsx"]);
+
+      // Delete default SVG files
+      const deleteSpinner = createSpinner(
+        "Removing default SVG files..."
+      ).start();
+      try {
+        await deleteFiles(process.cwd(), [
+          "public/file.svg",
+          "public/globe.svg",
+          "public/next.svg",
+          "public/vercel.svg",
+          "public/window.svg",
+        ]);
+        deleteSpinner.success({ text: "Removed default SVG files" });
+      } catch (error) {
+        deleteSpinner.error({
+          text: `Failed to remove SVG files: ${error.message}`,
+        });
+      }
+    } catch (error) {
+      console.error(chalk.red(`Failed to delete files: ${error.message}`));
+      process.exit(1);
+    }
 };

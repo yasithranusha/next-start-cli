@@ -1,17 +1,18 @@
 import { showWelcomeMessage } from "./utils/display.js";
-import { getProjectDetails } from "./utils/config.js";
+import { getProjectDetails, projectName } from "./utils/config.js";
 import { createNextJsApp } from "./commands/createNextApp.js";
 import { shadcnui } from "./commands/shadcnUI.js";
 import { shadcnComponents } from "./commands/shadcnComponents.js";
 import { admindashboard } from "./commands/admin.js";
 import { clientSetup } from "./commands/client.js";
 import { setupInfra } from "./commands/infra.js";
+import { showEndInstructions } from "./commands/endInstructions.js";
 
 const parseArgs = () => {
   const args = process.argv;
   return {
-    isAdmin: args.includes('--admin') || args.includes('-a'),
-    noGit: args.includes('--no-git')
+    isAdmin: args.includes("--admin") || args.includes("-a"),
+    noGit: args.includes("--no-git"),
   };
 };
 
@@ -36,7 +37,6 @@ export const run = async () => {
 
     console.clear();
     await clientSetup();
-    
 
     console.clear();
     if (isAdmin) {
@@ -44,8 +44,10 @@ export const run = async () => {
     }
 
     console.clear();
-    await setupInfra(project,noGit);
+    await setupInfra(project, noGit);
 
+    console.clear();
+    showEndInstructions(projectName);
   } catch (error) {
     if (error.message.includes("User force closed the prompt")) {
       console.log("\nOperation cancelled by user");

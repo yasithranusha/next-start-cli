@@ -18,21 +18,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { DataTablePagination } from "./datatable-pagination";
-
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+import { DataTableFiltrations } from "./filterations/datatable-filtrations";
 
 interface DataTableProps<TData, TValue> {
+  dateRangeFilter?: boolean;
+  dateRangeFilterText?: string;
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   pageCount: number;
@@ -40,6 +33,11 @@ interface DataTableProps<TData, TValue> {
   pageSize: number;
   searchBy?: string;
   tableMessage?: string;
+  filters?: {
+    title: string;
+    options: { label: string; value: string }[];
+    filterKey: string;
+  }[];
 }
 
 export function DataTable<TData, TValue>({
@@ -49,9 +47,13 @@ export function DataTable<TData, TValue>({
   pageIndex,
   pageSize,
   searchBy,
-  tableMessage="No results.",
+  filters,
+  dateRangeFilter,
+  dateRangeFilterText = "Pick a date range",
+  tableMessage = "No results.",
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = React.useState({});
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -77,74 +79,36 @@ export function DataTable<TData, TValue>({
     replace(`${pathname}?${params.toString()}`);
   };
 
-  const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams);
-    params.delete("page");
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
-
   const table = useReactTable({
     data,
     columns,
     pageCount,
+    onSortingChange: handleSorting,
+    onRowSelectionChange: setRowSelection,
+    manualSorting: true,
+    manualPagination: true,
+    getCoreRowModel: getCoreRowModel(),
+    enableSorting: true,
     state: {
       sorting,
       pagination: {
         pageIndex,
         pageSize,
       },
+      rowSelection,
     },
-    onSortingChange: handleSorting,
-    manualSorting: true,
-    manualPagination: true,
-    getCoreRowModel: getCoreRowModel(),
-    enableSorting: true,
   });
 
   return (
     <div>
-      <div className="flex items-center py-4">
-        {searchBy && (
-          <Input
-            placeholder={`Search by ${searchBy}`}
-            onChange={(e) => {
-              handleSearch(e.target.value);
-            }}
-            defaultValue={searchParams.get("query")?.toString()}
-            className="max-w-sm"
-          />
-        )}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="flex items-center py-4 gap-2">
+        <DataTableFiltrations
+          searchBy={searchBy}
+          filters={filters}
+          dateRangeFilterText={dateRangeFilterText}
+          dateRangeFilter={dateRangeFilter}
+          table={table}
+        />
       </div>
       <div className="rounded-md border">
         <Table>
@@ -195,6 +159,10 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex-1 text-sm text-muted-foreground">
+        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+        {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
       <DataTablePagination
         pageCount={pageCount}

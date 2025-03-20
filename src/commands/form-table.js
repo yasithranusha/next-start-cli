@@ -13,7 +13,14 @@ export const setupFormTable = async (projectPath, noGit = false) => {
   console.log(chalk.gray("─".repeat(50)));
 
   try {
-    await execa("yarn", ["add", "use-debounce", "@tanstack/react-table"], {
+    await execa(
+      "yarn",
+      ["add", "use-debounce", "@tanstack/react-table", "nedb", "bcrypt"],
+      {
+        stdio: "inherit",
+      }
+    );
+    await execa("yarn", ["add", "--dev", "@types/nedb", "@types/bcrypt"], {
       stdio: "inherit",
     });
     depsSpinner.success({ text: "Dependencies installed successfully" });
@@ -42,6 +49,8 @@ export const setupFormTable = async (projectPath, noGit = false) => {
         "scroll-area",
         "select",
         "table",
+        "checkbox",
+        "command",
         "calendar",
         "sonner",
         "--overwrite",
@@ -64,7 +73,7 @@ export const setupFormTable = async (projectPath, noGit = false) => {
   try {
     const envSpinner = createSpinner("Creating .env file...").start();
     const envPath = path.join(process.cwd(), ".env.local");
-    const envContent = "BASE_URL=http://localhost:3001/api";
+    const envContent = "BASE_URL=http://localhost:3000/api";
 
     await fs.writeFile(envPath, envContent, "utf8");
     envSpinner.success({ text: "Created .env file successfully" });
@@ -96,6 +105,14 @@ export const setupFormTable = async (projectPath, noGit = false) => {
     await copyTemplateFiles("form-table", process.cwd(), true);
     templateSpinner.success({
       text: "Form and Table template files copied successfully",
+    });
+
+    const templateSpinnerApi = createSpinner(
+      "Copying mock API template files"
+    ).start();
+    await copyTemplateFiles("mock-api", process.cwd(), true);
+    templateSpinnerApi.success({
+      text: "Mock API template files copied successfully",
     });
 
     // Add git commit only if noGit is false

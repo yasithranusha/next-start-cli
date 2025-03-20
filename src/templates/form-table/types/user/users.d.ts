@@ -1,4 +1,5 @@
-import { UserRoles, UserStatus } from '@/enum/user';
+import { UserRoles, UserStatus } from "@/enum/user";
+import { PaginationParams, PaginatedResponse } from "@/types/pagination";
 
 export interface IUser {
   _id: string;
@@ -12,12 +13,17 @@ export interface IUser {
   updatedAt?: Date;
 }
 
-export interface getAllUsersResponse{
+export interface getAllUsersResponse extends PaginatedResponse {
   users: IUser[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+}
+
+export interface getAllUserRquestParams extends PaginationParams {
+  page: number;
+  limit: number;
+  sort?: string;
+  email?: string;
+  role?: string[];
+  status?: string[];
+  startDate?: string;
+  endDate?: string;
 }

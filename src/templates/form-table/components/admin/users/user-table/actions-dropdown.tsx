@@ -36,7 +36,6 @@ export default function ActionsDropDown({ user }: ActionsDropDownProps) {
           <DropdownMenuSeparator />
           <div className="flex flex-col gap-1">
             <DropdownMenuItem
-              className="cursor-pointer"
               onClick={() => {
                 setIsUpdateOpen(true);
                 setIsDropdownOpen(false);
@@ -45,7 +44,7 @@ export default function ActionsDropDown({ user }: ActionsDropDownProps) {
               Update User
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="cursor-pointer hover:!text-destructive"
+              className="hover:!text-destructive"
               onClick={() => {
                 setIsDeleteConfirmOpen(true);
                 setIsDropdownOpen(false);

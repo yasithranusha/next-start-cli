@@ -8,8 +8,31 @@ import { DataTableColumnHeader } from "@/components/data-table/datatable-header"
 import ActionsDropDown from "./actions-dropdown";
 import { UserRoles, UserStatus } from "@/enum/user";
 import { capitalizeFirstLetter } from "@/lib/format";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const AdminColumns: ColumnDef<IUser>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     enableSorting: true,

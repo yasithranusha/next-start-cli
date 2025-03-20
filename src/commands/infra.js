@@ -113,21 +113,6 @@ export const setupInfra = async (project, noGit = false) => {
       text: "Docker configurations updated with detected versions and project name",
     });
 
-    // Create .env file for Docker with the detected versions and project name
-    const envSpinner = createSpinner(
-      "Creating Docker environment file"
-    ).start();
-    const envContent = `NODE_VERSION=${nodeVersion}
-YARN_VERSION=${yarnVersion}
-APP_NAME=${project}`;
-
-    await fs.writeFile(
-      path.join(process.cwd(), ".env.local"),
-      envContent,
-      "utf8"
-    );
-    envSpinner.success({ text: "Created .env file with detected versions" });
-
     // Also make the start-docker.sh script executable
     try {
       const scriptPath = path.join(process.cwd(), "scripts", "start-docker.sh");
@@ -163,9 +148,10 @@ APP_NAME=${project}`;
         // Create conventional commit
         await execa("git", [
           "commit",
-          "--m",
+          "-m",
           "feat(docker): add Docker infrastructure",
         ]);
+
         gitSpinner.success({ text: "Created git commit for Docker setup" });
       } catch (gitError) {
         gitSpinner.error({
@@ -178,6 +164,51 @@ APP_NAME=${project}`;
         );
       }
     }
+
+    const readmeSpinner = createSpinner(
+      "Updating README.md with Docker instructions"
+    ).start();
+
+    try {
+      const readmePath = path.join(process.cwd(), "README.md");
+      let readmeContent = await fs.readFile(readmePath, "utf8");
+
+      // Check if Docker instructions already exist
+      if (!readmeContent.includes("./scripts/start-docker.sh")) {
+        // Find the "Getting Started" section and add Docker instructions after the run commands
+        readmeContent = readmeContent.replace(
+          /```bash\nnpm run dev\n# or\nyarn dev\n# or\npnpm dev\n# or\nbun dev\n```/,
+          "```bash\nyarn dev```\n\nTo start the project using Docker (dev or prod), use the helper script:\n\n```bash\n./scripts/start-docker.sh\n```"
+        );
+
+        await fs.writeFile(readmePath, readmeContent, "utf8");
+        readmeSpinner.success({
+          text: "README.md updated with Docker instructions",
+        });
+
+        // Add README.md to git commit if not noGit
+        if (!noGit) {
+          try {
+            await execa("git", ["add", "README.md"]);
+          } catch (gitError) {
+            // Ignore git errors here, they will be handled in the main git section
+          }
+        }
+      } else {
+        readmeSpinner.success({
+          text: "README.md already contains Docker instructions",
+        });
+      }
+    } catch (readmeError) {
+      readmeSpinner.error({
+        text: `Could not update README.md: ${readmeError.message}`,
+      });
+      console.log(
+        chalk.yellow(
+          "Note: You may need to manually update README.md with Docker instructions"
+        )
+      );
+    }
   } catch (error) {
     console.error(
       chalk.red(`Failed to set up Docker infrastructure: ${error.message}`)
@@ -189,26 +220,6 @@ APP_NAME=${project}`;
   console.log(
     chalk.green("\n✔ Docker infrastructure setup completed successfully")
   );
-  console.log(chalk.blue("\nCreated files:"));
-  console.log(
-    chalk.yellow("- Dockerfile.dev (with detected Node/Yarn versions)")
-  );
-  console.log(
-    chalk.yellow("- Dockerfile.prod (with detected Node/Yarn versions)")
-  );
-  console.log(
-    chalk.yellow(
-      `- docker-compose.yml (with service names: ${project}-dev, ${project}-prod)`
-    )
-  );
-  console.log(chalk.yellow("- .dockerignore"));
-  console.log(chalk.yellow("- .env (with Node/Yarn versions and app name)"));
-  console.log(chalk.yellow("- scripts/start-docker.sh (helper script)"));
 
-  console.log(chalk.blue("\nTo run your app in Docker:"));
-  console.log(chalk.yellow("Option 1: Use the helper script:"));
-  console.log(chalk.yellow("  ./scripts/start-docker.sh"));
-  console.log(chalk.yellow("\nOption 2: Use docker-compose directly:"));
-  console.log(chalk.yellow("  Development: docker-compose --profile dev up"));
-  console.log(chalk.yellow("  Production:  docker-compose --profile prod up"));
+
 };
