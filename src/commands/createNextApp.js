@@ -4,7 +4,7 @@ import { projectName, nextJsVersion } from "../utils/config.js";
 import fs from "fs/promises";
 import path from "path";
 import chalk from "chalk";
-import inquirer from "inquirer"; 
+import inquirer from "inquirer";
 
 export const createNextJsApp = async (noGit = false) => {
   // Check if yarn is installed
@@ -13,7 +13,9 @@ export const createNextJsApp = async (noGit = false) => {
   ).start();
   try {
     await execa("yarn", ["--version"], { stdio: "ignore" });
-    yarnCheckSpinner.success({ text: "Yarn is installed. Proceeding project with yarn" });
+    yarnCheckSpinner.success({
+      text: "Yarn is installed. Proceeding project with yarn",
+    });
   } catch (error) {
     yarnCheckSpinner.error({ text: "Yarn is not installed" });
     console.log(
@@ -66,18 +68,19 @@ export const createNextJsApp = async (noGit = false) => {
       projectName,
       "--use-yarn",
       "--tailwind",
+      "--ts",
       "--eslint",
       "--app",
       "--src-dir",
       "--import-alias",
       "@/*",
     ];
-    
+
     // Add the --no-git flag if requested
     if (noGit) {
       commandArgs.push("--no-git");
     }
-    
+
     await execa("npx", commandArgs, { stdio: "inherit" });
 
     // Rest of your code remains the same...

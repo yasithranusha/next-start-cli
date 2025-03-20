@@ -8,6 +8,9 @@
     {
       "source": "(server)",
       "destination": "src/app/(server)"
+    }, {
+      "source": "data.db",
+      "destination": "data.db"
     }
   ]
 }

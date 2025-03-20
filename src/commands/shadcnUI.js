@@ -25,7 +25,7 @@ export const shadcnui = async () => {
         )
       );
 
-      await execa("npx", ["shadcn@latest", "init"], {
+      await execa("npx", ["shadcn@latest", "init", "-y"], {
         stdio: "inherit",
       });
 

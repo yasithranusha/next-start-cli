@@ -113,20 +113,6 @@ export const setupInfra = async (project, noGit = false) => {
       text: "Docker configurations updated with detected versions and project name",
     });
 
-    // Create .env file for Docker with the detected versions and project name
-    const envSpinner = createSpinner(
-      "Creating Docker environment file"
-    ).start();
-
-    const envContent = `BASE_URL=http://localhost:3001/api`;
-
-    await fs.writeFile(
-      path.join(process.cwd(), ".env.local"),
-      envContent,
-      "utf8"
-    );
-    envSpinner.success({ text: "Created .env file with detected versions" });
-
     // Also make the start-docker.sh script executable
     try {
       const scriptPath = path.join(process.cwd(), "scripts", "start-docker.sh");
@@ -234,26 +220,6 @@ export const setupInfra = async (project, noGit = false) => {
   console.log(
     chalk.green("\n✔ Docker infrastructure setup completed successfully")
   );
-  console.log(chalk.blue("\nCreated files:"));
-  console.log(
-    chalk.yellow("- Dockerfile.dev (with detected Node/Yarn versions)")
-  );
-  console.log(
-    chalk.yellow("- Dockerfile.prod (with detected Node/Yarn versions)")
-  );
-  console.log(
-    chalk.yellow(
-      `- docker-compose.yml (with service names: ${project}-dev, ${project}-prod)`
-    )
-  );
-  console.log(chalk.yellow("- .dockerignore"));
-  console.log(chalk.yellow("- .env (with Node/Yarn versions and app name)"));
-  console.log(chalk.yellow("- scripts/start-docker.sh (helper script)"));
 
-  console.log(chalk.blue("\nTo run your app in Docker:"));
-  console.log(chalk.yellow("Option 1: Use the helper script:"));
-  console.log(chalk.yellow("  ./scripts/start-docker.sh"));
-  console.log(chalk.yellow("\nOption 2: Use docker-compose directly:"));
-  console.log(chalk.yellow("  Development: docker-compose --profile dev up"));
-  console.log(chalk.yellow("  Production:  docker-compose --profile prod up"));
+
 };
