@@ -77,8 +77,8 @@ my-app/
   ```
 
 - `--tests` or `-t`: Adds testing frameworks to your project:
-  - Jest for unit testing
-  - Cypress for end-to-end testing
+  - Jest or vitest for unit testing
+  - Cypress or playwright for end-to-end testing
   - Testing utilities for React components
 
 - `--no-git`: Skip changes committing in CLI tool
