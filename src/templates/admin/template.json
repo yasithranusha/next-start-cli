@@ -22,10 +22,6 @@
       "destination": "src/hooks"
     },
     {
-      "source": "types/components-props.ts",
-      "destination": "src/types/components-props.ts"
-    },
-    {
       "source": "lib/role/functions.ts",
       "destination": "src/lib/role/functions.ts"
     },
