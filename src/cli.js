@@ -6,6 +6,8 @@ import { shadcnComponents } from "./commands/shadcnComponents.js";
 import { admindashboard } from "./commands/admin.js";
 import { clientSetup } from "./commands/client.js";
 import { setupInfra } from "./commands/infra.js";
+import { setupUnitTestFramework } from "./commands/unit-test-case.js";
+import { setupEndToEndTestFramework } from "./commands/e2e-test-case.js";
 import { showEndInstructions } from "./commands/endInstructions.js";
 
 const parseArgs = () => {
@@ -13,11 +15,12 @@ const parseArgs = () => {
   return {
     isAdmin: args.includes("--admin") || args.includes("-a"),
     noGit: args.includes("--no-git"),
+    tests: args.includes("--tests") || args.includes("-t"),
   };
 };
 
 export const run = async () => {
-  const { isAdmin, noGit } = parseArgs();
+  const { isAdmin, noGit, tests } = parseArgs();
 
   process.on("SIGINT", () => {
     console.log("\nExiting CLI...");
@@ -46,8 +49,15 @@ export const run = async () => {
     console.clear();
     await setupInfra(project, noGit);
 
+    if (tests) {
+      console.clear();
+      await setupUnitTestFramework(project, noGit);
+      console.clear();
+      await setupEndToEndTestFramework(project, noGit);
+    }
+
     console.clear();
-    showEndInstructions(projectName);
+    showEndInstructions(projectName, tests);
   } catch (error) {
     if (error.message.includes("User force closed the prompt")) {
       console.log("\nOperation cancelled by user");

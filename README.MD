@@ -31,6 +31,11 @@ With admin dashboard:
 next-start-cli --admin
 ```
 
+with unit and e2e test framework setup:
+```sh
+next-start-cli --tests
+```
+
 Without git committing changes made by CLI tool:
 ```sh
 next-start-cli --no-git
@@ -70,6 +75,11 @@ my-app/
   ```sh
   rm -rf "src/app/(server)" "data.db" && yarn remove bcrypt nedb @types/bcrypt @types/nedb
   ```
+
+- `--tests` or `-t`: Adds testing frameworks to your project:
+  - Jest or vitest for unit testing
+  - Cypress or playwright for end-to-end testing
+  - Testing utilities for React components
 
 - `--no-git`: Skip changes committing in CLI tool
 

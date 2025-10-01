@@ -2,7 +2,7 @@ import chalk from "chalk";
 import gradient from "gradient-string";
 import chalkAnimation from "chalk-animation";
 
-export const showEndInstructions = (projectName) => {
+export const showEndInstructions = (projectName, tests = false) => {
   console.log(chalk.gray("─".repeat(50)));
   console.log(chalk.green.bold(`\n🎉 Project ${projectName} is ready!`));
 
@@ -21,6 +21,17 @@ export const showEndInstructions = (projectName) => {
   console.log(chalk.magenta("\nOption 2: Use docker-compose directly:"));
   console.log(chalk.yellow("  Development: docker-compose --profile dev up"));
   console.log(chalk.yellow("  Production:  docker-compose --profile prod up"));
+
+  // Testing instructions if tests are enabled
+  if (tests) {
+    console.log(chalk.blue("\n🧪 Testing your project:"));
+    console.log(chalk.magenta("\nTesting documentation:"));
+    console.log(
+      chalk.yellow(
+        "  https://nextjs.org/docs/app/building-your-application/testing"
+      )
+    );
+  }
 
   // Customization instructions
   console.log(chalk.blue("\n⚙️  To customize your project:"));
@@ -64,6 +75,13 @@ export const showEndInstructions = (projectName) => {
   console.log(chalk.cyan("  /src/middleware  - Next.js middleware"));
   console.log(chalk.cyan("  /src/schema      - Zod validation schemas"));
   console.log(chalk.cyan("  /src/types       - TypeScript type definitions"));
+  if (tests) {
+    console.log(chalk.cyan("  /src/__tests__   - Unit tests"));
+    console.log(chalk.cyan("  /cypress/e2e    - Cypress tests (if selected)"));
+    console.log(
+      chalk.cyan("  /tests          - Playwright tests (if selected)")
+    );
+  }
   console.log(chalk.cyan("  /scripts         - Bash helper scripts"));
   console.log(chalk.cyan("  /public          - Static assets"));
 
@@ -82,6 +100,4 @@ export const showEndInstructions = (projectName) => {
   setTimeout(() => {
     pulse.stop();
   }, 3000);
-
-  console.log(endingMessage);
 };

@@ -40,6 +40,10 @@
     {
       "source": "types/navigation.ts",
       "destination": "src/types/navigation.ts"
+    },
+    {
+      "source": "types/components-props.ts",
+      "destination": "src/types/components-props.ts"
     }
   ]
 }
