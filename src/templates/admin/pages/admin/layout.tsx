@@ -18,7 +18,7 @@ export default async function Layout({
   // IMPORTANT: Implement session management in @/lib/auth/session.ts
   // This will return null until you implement your authentication solution
   const userRole = await getUserRole();
-  
+
   // For development: Use a default role if session not implemented
   // REMOVE THIS IN PRODUCTION once authentication is implemented
   const role = userRole ?? UserRoles.ADMIN;

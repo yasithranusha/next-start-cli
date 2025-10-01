@@ -23,7 +23,9 @@ yarn add next-auth
 ```
 
 **Setup:**
+
 1. Create `src/lib/auth/config.ts`:
+
 ```typescript
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -35,14 +37,14 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         // TODO: Validate credentials against your database
         // const user = await validateUser(credentials);
         // return user;
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -56,15 +58,16 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as UserRoles;
       }
       return session;
-    }
+    },
   },
   pages: {
     signIn: "/login",
-  }
+  },
 };
 ```
 
 2. Update `src/lib/auth/session.ts`:
+
 ```typescript
 import { getServerSession } from "next-auth";
 import { authOptions } from "./config";
@@ -87,6 +90,7 @@ export async function getSession() {
 ```
 
 3. Create API route `src/app/api/auth/[...nextauth]/route.ts`:
+
 ```typescript
 import NextAuth from "next-auth";
 import { authOptions } from "@/lib/auth/config";
@@ -104,12 +108,15 @@ yarn add iron-session
 ```
 
 **Setup:**
+
 1. Create `.env.local`:
+
 ```env
 SESSION_SECRET=your-secret-key-at-least-32-characters-long
 ```
 
 2. Update `src/lib/auth/session.ts`:
+
 ```typescript
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
@@ -135,8 +142,10 @@ yarn add @clerk/nextjs
 ```
 
 **Setup:**
+
 1. Follow [Clerk's documentation](https://clerk.com/docs/quickstarts/nextjs)
 2. Update `src/lib/auth/session.ts`:
+
 ```typescript
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -172,6 +181,7 @@ export async function getSession() {
 ## 🔧 Development Mode
 
 During development, the template uses fallback values:
+
 - **Middleware**: Falls back to `UserRoles.ADMIN` if no session
 - **Admin Layout**: Uses `UserRoles.ADMIN` as default
 

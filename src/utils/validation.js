@@ -100,7 +100,8 @@ export const validateProjectName = (name) => {
   }
 
   // Check for invalid characters (only lowercase, numbers, hyphens, and @ for scoped packages)
-  const validNamePattern = /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+  const validNamePattern =
+    /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
   if (!validNamePattern.test(trimmedName)) {
     return {
       isValid: false,
@@ -209,27 +210,27 @@ export const checkDirectoryExists = async (dirPath) => {
  */
 export const generateSecurePassword = async (length = 16) => {
   const crypto = await import("crypto");
-  
+
   // Define character sets
   const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const lowercase = "abcdefghijklmnopqrstuvwxyz";
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-  
+
   const allChars = uppercase + lowercase + numbers + symbols;
-  
+
   // Ensure password has at least one character from each set
   let password = "";
   password += uppercase[crypto.randomInt(0, uppercase.length)];
   password += lowercase[crypto.randomInt(0, lowercase.length)];
   password += numbers[crypto.randomInt(0, numbers.length)];
   password += symbols[crypto.randomInt(0, symbols.length)];
-  
+
   // Fill the rest randomly
   for (let i = password.length; i < length; i++) {
     password += allChars[crypto.randomInt(0, allChars.length)];
   }
-  
+
   // Shuffle the password to avoid predictable patterns
   return password
     .split("")

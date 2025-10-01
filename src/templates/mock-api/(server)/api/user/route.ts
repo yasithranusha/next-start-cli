@@ -68,8 +68,9 @@ export async function POST(req: NextRequest) {
 
     // TODO: In production, implement email service to send password to user
     // Example: await sendPasswordEmail(email, password);
-    console.log(`Generated password for ${email}: ${password} (Store this securely or send via email)`);
-
+    console.log(
+      `Generated password for ${email}: ${password} (Store this securely or send via email)`
+    );
 
     // Create user
     const user: User = {

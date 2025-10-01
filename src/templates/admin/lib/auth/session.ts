@@ -1,8 +1,8 @@
 /**
  * Session Management Utilities
- * 
+ *
  * This file provides helper functions for managing user sessions.
- * 
+ *
  * IMPLEMENTATION REQUIRED:
  * You need to implement your preferred authentication solution:
  * - NextAuth.js (recommended for OAuth and credential-based auth)
@@ -10,7 +10,7 @@
  * - Auth0 (enterprise authentication)
  * - Custom JWT-based authentication
  * - Iron Session (lightweight session management)
- * 
+ *
  * Example implementations are provided below for common patterns.
  */
 
@@ -33,17 +33,17 @@ export interface SessionData {
 
 /**
  * Gets the current user session
- * 
+ *
  * IMPLEMENT THIS: Replace with your authentication solution
- * 
+ *
  * Example with NextAuth:
  * ```typescript
  * import { getServerSession } from "next-auth";
  * import { authOptions } from "@/lib/auth/config";
- * 
+ *
  * const session = await getServerSession(authOptions);
  * if (!session?.user) return null;
- * 
+ *
  * return {
  *   user: {
  *     id: session.user.id,
@@ -55,17 +55,17 @@ export interface SessionData {
  *   expiresAt: new Date(session.expires),
  * };
  * ```
- * 
+ *
  * Example with Iron Session:
  * ```typescript
  * import { getIronSession } from "iron-session";
- * 
+ *
  * const cookieStore = await cookies();
  * const session = await getIronSession(cookieStore, {
  *   password: process.env.SESSION_SECRET!,
  *   cookieName: "app_session",
  * });
- * 
+ *
  * if (!session.user) return null;
  * return session as SessionData;
  * ```
@@ -73,11 +73,11 @@ export interface SessionData {
 export async function getSession(): Promise<SessionData | null> {
   // TODO: IMPLEMENT YOUR AUTH SOLUTION HERE
   // This is a placeholder that should be replaced with actual session retrieval
-  
+
   // For development/testing only - returns null (unauthenticated)
   // Remove this and implement proper session retrieval
   return null;
-  
+
   // Example: Check for a session cookie
   // const cookieStore = await cookies();
   // const sessionCookie = cookieStore.get("session");
@@ -87,7 +87,7 @@ export async function getSession(): Promise<SessionData | null> {
 
 /**
  * Gets the current user's role from session
- * 
+ *
  * @returns The user's role or null if not authenticated
  */
 export async function getUserRole(): Promise<UserRoles | null> {
@@ -97,7 +97,7 @@ export async function getUserRole(): Promise<UserRoles | null> {
 
 /**
  * Gets the current user from session
- * 
+ *
  * @returns The user data or null if not authenticated
  */
 export async function getCurrentUser() {
@@ -107,7 +107,7 @@ export async function getCurrentUser() {
 
 /**
  * Checks if the current user is authenticated
- * 
+ *
  * @returns True if user is authenticated, false otherwise
  */
 export async function isAuthenticated(): Promise<boolean> {
@@ -117,7 +117,7 @@ export async function isAuthenticated(): Promise<boolean> {
 
 /**
  * Checks if the current user has a specific role
- * 
+ *
  * @param role - The role to check against
  * @returns True if user has the specified role
  */
@@ -128,7 +128,7 @@ export async function hasRole(role: UserRoles): Promise<boolean> {
 
 /**
  * Checks if the current user has any of the specified roles
- * 
+ *
  * @param roles - Array of roles to check against
  * @returns True if user has any of the specified roles
  */
