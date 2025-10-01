@@ -3,6 +3,39 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/app/(server)/_config/lib/db";
 import { User } from "@/app/(server)/_config/types/db";
 import { hash } from "bcrypt";
+import crypto from "crypto";
+
+/**
+ * Generates a cryptographically secure random password
+ * @param length - The length of the password (default: 16)
+ * @returns The generated password
+ */
+function generateSecurePassword(length: number = 16): string {
+  const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowercase = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+  const allChars = uppercase + lowercase + numbers + symbols;
+
+  // Ensure password has at least one character from each set
+  let password = "";
+  password += uppercase[crypto.randomInt(0, uppercase.length)];
+  password += lowercase[crypto.randomInt(0, lowercase.length)];
+  password += numbers[crypto.randomInt(0, numbers.length)];
+  password += symbols[crypto.randomInt(0, symbols.length)];
+
+  // Fill the rest randomly
+  for (let i = password.length; i < length; i++) {
+    password += allChars[crypto.randomInt(0, allChars.length)];
+  }
+
+  // Shuffle the password to avoid predictable patterns
+  return password
+    .split("")
+    .sort(() => crypto.randomInt(0, 2) - 0.5)
+    .join("");
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,11 +59,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    //todo: generate a random password and save, then send a email to user to set a new password
-    const password = "Abcd@1234";
+    // Generate a secure random password
+    // In production: Send this password via email and prompt user to change it on first login
+    const password = generateSecurePassword(16);
 
     // Hash password
     const hashedPassword = await hash(password, 10);
+
+    // TODO: In production, implement email service to send password to user
+    // Example: await sendPasswordEmail(email, password);
+    console.log(`Generated password for ${email}: ${password} (Store this securely or send via email)`);
+
 
     // Create user
     const user: User = {

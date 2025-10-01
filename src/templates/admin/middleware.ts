@@ -8,10 +8,16 @@ import {
 } from "@/data/routes/default-routes";
 import { UserRoles } from "@/enum/user";
 import { middlewareRouteCheck } from "@/lib/role/functions";
+import { getUserRole } from "@/lib/auth/session";
 
 export default async function middleware(req: NextRequest) {
-  //Todo: Get the user role from session
-  const role = UserRoles.ADMIN;
+  // Get user role from session
+  // IMPORTANT: Implement session management in @/lib/auth/session.ts
+  // This will return null until you implement your authentication solution
+  const role = await getUserRole();
+  
+  // For development: Uncomment to bypass auth (REMOVE IN PRODUCTION)
+  // const role = UserRoles.ADMIN;
   const pathname = req.nextUrl.pathname;
 
   // If user has role and tries to access auth routes, redirect to dashboard
