@@ -29,7 +29,9 @@ export const getProjectDetails = async () => {
     if (!nameValidation.isValid) {
       displayValidationError(nameValidation.error);
       console.log(chalk.blue("Tips:"));
-      console.log(chalk.gray("  • Use lowercase letters, numbers, and hyphens"));
+      console.log(
+        chalk.gray("  • Use lowercase letters, numbers, and hyphens")
+      );
       console.log(chalk.gray("  • Example: my-awesome-app, project-2024"));
       continue;
     }
@@ -39,7 +41,11 @@ export const getProjectDetails = async () => {
     const dirCheck = await checkDirectoryExists(dirPath);
     if (dirCheck.exists) {
       displayValidationError(dirCheck.error);
-      console.log(chalk.yellow("  Please choose a different name or remove the existing directory.\n"));
+      console.log(
+        chalk.yellow(
+          "  Please choose a different name or remove the existing directory.\n"
+        )
+      );
       continue;
     }
 
@@ -64,9 +70,13 @@ export const getProjectDetails = async () => {
     if (!versionValidation.isValid) {
       displayValidationError(versionValidation.error);
       console.log(chalk.blue("Tips:"));
-      console.log(chalk.gray('  • Use "latest" for the most recent stable version'));
+      console.log(
+        chalk.gray('  • Use "latest" for the most recent stable version')
+      );
       console.log(chalk.gray('  • Use "canary" for the latest canary release'));
-      console.log(chalk.gray("  • Or specify a version like: 14.0.0, 14.2, 15\n"));
+      console.log(
+        chalk.gray("  • Or specify a version like: 14.0.0, 14.2, 15\n")
+      );
       continue;
     }
 

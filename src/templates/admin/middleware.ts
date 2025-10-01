@@ -15,7 +15,7 @@ export default async function middleware(req: NextRequest) {
   // IMPORTANT: Implement session management in @/lib/auth/session.ts
   // This will return null until you implement your authentication solution
   const role = await getUserRole();
-  
+
   // For development: Uncomment to bypass auth (REMOVE IN PRODUCTION)
   // const role = UserRoles.ADMIN;
   const pathname = req.nextUrl.pathname;
