@@ -5,6 +5,7 @@ This document describes the comprehensive help system added to Next Start CLI v2
 ## Overview
 
 The CLI now includes a detailed help command that provides:
+
 - Complete usage instructions
 - Detailed option descriptions
 - Feature lists
@@ -38,17 +39,20 @@ next-start-cli -v
 ### Files Created/Modified
 
 1. **`src/commands/help.js`** (New)
+
    - `showHelp()` - Displays comprehensive help information
    - `showVersion()` - Displays version information
    - Uses chalk for colored output
    - Uses gradient-string for attractive header
 
 2. **`src/cli.js`** (Modified)
+
    - Added help and version flag parsing
    - Handles --help, -h, --version, -v flags
    - Exits after displaying help/version
 
 3. **`README.MD`** (Enhanced)
+
    - Added comprehensive usage examples
    - Added troubleshooting section
    - Added tips and best practices
@@ -61,16 +65,21 @@ next-start-cli -v
 ## Help Command Sections
 
 ### 1. Header
+
 Beautiful ASCII art header with gradient colors showing:
+
 - CLI name and version
 - Project tagline
 - Visual appeal
 
 ### 2. Usage
+
 Basic usage syntax and common invocations
 
 ### 3. Options
+
 Detailed description of each flag:
+
 - `--admin, -a` - Admin dashboard setup
 - `--tests, -t` - Testing frameworks
 - `--no-git` - Skip git commits
@@ -78,20 +87,26 @@ Detailed description of each flag:
 - `--version, -v` - Display version
 
 ### 4. Combining Options
+
 Examples of using multiple flags together
 
 ### 5. Features
+
 Comprehensive list of what's included:
+
 - Base project features
 - Admin dashboard features
 - Testing setup features
 - Docker support features
 
 ### 6. Project Structure
+
 Visual representation of generated project structure
 
 ### 7. Quick Start Guide
+
 5-step process to get started:
+
 1. Create project
 2. Follow prompts
 3. Navigate to project
@@ -99,20 +114,26 @@ Visual representation of generated project structure
 5. Open in browser
 
 ### 8. Post-Setup Configuration
+
 What to do after project creation:
+
 - Update brand information
 - Customize routes
 - Setup authentication
 - Run with Docker
 
 ### 9. Usage Examples
+
 Real-world examples with explanations:
+
 - Basic project
 - Full-featured admin
 - Development mode
 
 ### 10. Tips & Best Practices
+
 Expert advice on:
+
 - Project naming conventions
 - Version selection
 - Admin dashboard setup
@@ -120,7 +141,9 @@ Expert advice on:
 - Testing strategies
 
 ### 11. Troubleshooting
+
 Common issues and solutions:
+
 - Yarn not found
 - Directory exists
 - Invalid project name
@@ -128,20 +151,25 @@ Common issues and solutions:
 - Component issues
 
 ### 12. Resources & Documentation
+
 Links to official documentation:
+
 - Next.js, shadcn/ui, Tailwind, TypeScript
 - Testing frameworks
 - Authentication providers
 
 ### 13. Support & Contribution
+
 How to get help and contribute
 
 ### 14. Notes
+
 Important reminders and clarifications
 
 ## Color Scheme
 
 The help command uses a consistent color scheme:
+
 - **Blue**: Section headers
 - **Yellow**: Commands and code
 - **Green**: Options and success indicators
@@ -153,18 +181,21 @@ The help command uses a consistent color scheme:
 ## Benefits
 
 ### For New Users
+
 - Comprehensive onboarding
 - Clear examples
 - Step-by-step guidance
 - Troubleshooting help
 
 ### For Experienced Users
+
 - Quick reference
 - Flag combinations
 - Advanced tips
 - Resource links
 
 ### For Contributors
+
 - Clear structure
 - Consistent formatting
 - Easy to extend
@@ -192,6 +223,7 @@ console.log(chalk.gray("    Example: ") + chalk.yellow("command-example\n"));
 ## Version Command
 
 The version command displays:
+
 - CLI name with emoji
 - Current version number
 - Author name
@@ -202,6 +234,7 @@ Simple and quick for checking installed version.
 ## Integration with README
 
 The help command content is synchronized with README.MD:
+
 - Consistent information
 - Same examples
 - Matching structure
@@ -229,6 +262,7 @@ node src/index.js -v
 ## Future Enhancements
 
 Potential improvements:
+
 - Interactive help (inquirer-based navigation)
 - Context-sensitive help (help for specific flags)
 - Help search functionality
@@ -240,6 +274,7 @@ Potential improvements:
 ## Maintenance
 
 When updating the CLI:
+
 1. Update version in `package.json`
 2. Update version in `src/commands/help.js`
 3. Add new features to help text
@@ -250,6 +285,7 @@ When updating the CLI:
 ## Feedback
 
 Help command improvements are based on:
+
 - User feedback
 - Common support questions
 - Documentation gaps

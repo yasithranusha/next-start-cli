@@ -48,25 +48,31 @@ next-start-cli -v
 ### Options
 
 **Admin Dashboard:**
+
 ```sh
 next-start-cli --admin
 # or
 next-start-cli -a
 ```
+
 Includes admin dashboard with sidebar, user management, and authentication structure.
 
 **Testing Frameworks:**
+
 ```sh
 next-start-cli --tests
 # or
 next-start-cli -t
 ```
+
 Adds Vitest/Jest for unit testing and Playwright/Cypress for e2e testing.
 
 **Skip Git Commits:**
+
 ```sh
 next-start-cli --no-git
 ```
+
 Skips automatic git commits made by the CLI tool.
 Note: Use `--no-git` when testing locally for development.
 
@@ -127,6 +133,7 @@ my-app/
 ## Features
 
 ### Base Project
+
 - ✅ Next.js with App Router
 - ✅ TypeScript for type safety
 - ✅ Tailwind CSS for styling
@@ -137,6 +144,7 @@ my-app/
 - ✅ Docker infrastructure (dev & prod)
 
 ### Admin Dashboard (`--admin`)
+
 - ✅ Professional sidebar navigation
 - ✅ Role-based access control
 - ✅ User management with CRUD operations
@@ -147,6 +155,7 @@ my-app/
 - ✅ Comprehensive AUTH_SETUP.md guide
 
 ### Testing Setup (`--tests`)
+
 - ✅ Unit testing framework (Vitest or Jest)
 - ✅ E2E testing framework (Playwright or Cypress)
 - ✅ Pre-configured test setup
@@ -154,6 +163,7 @@ my-app/
 - ✅ React Testing Library
 
 ### Docker Support
+
 - ✅ Development Dockerfile
 - ✅ Production Dockerfile
 - ✅ Docker Compose configuration
@@ -163,6 +173,7 @@ my-app/
 ## What's New in v2.0.0
 
 ### 🎉 New Features
+
 - **Input Validation**: Project names and versions are now validated with helpful error messages
 - **Comprehensive Help**: New `--help` command with detailed guides and examples
 - **Version Command**: Quick version check with `--version` flag
@@ -170,12 +181,14 @@ my-app/
 - **Session Management**: Complete authentication utilities with multiple implementation options
 
 ### 🔒 Security Improvements
+
 - Secure random password generation for new users
 - Session management structure with NextAuth.js, Iron Session, and Clerk examples
 - Resolved all authentication TODOs with clear implementation paths
 - AUTH_SETUP.md guide included with admin dashboard
 
 ### ✨ Quality Improvements
+
 - Validates project names (no spaces, special characters, reserved names)
 - Checks for existing directories before creation
 - Better error messages with helpful tips
@@ -216,6 +229,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Update Brand Information
 
 Edit `src/data/brand.ts` to configure:
+
 - Project name and tagline
 - Logo and favicon
 - Contact information
@@ -224,6 +238,7 @@ Edit `src/data/brand.ts` to configure:
 ### Customize Routes
 
 Edit `src/data/routes/client-menu.ts` to add/remove:
+
 - Navbar links
 - Footer links
 - Custom pages
@@ -249,6 +264,7 @@ Choose development or production mode.
 ## Tips & Best Practices
 
 ### Project Naming
+
 - ✅ Use lowercase: `my-app`
 - ✅ Use hyphens: `my-awesome-app`
 - ❌ Avoid spaces: `my app`
@@ -256,17 +272,20 @@ Choose development or production mode.
 - ❌ Avoid reserved names: `react`, `node`, `test`
 
 ### Version Selection
+
 - Use `latest` for stable releases (recommended)
 - Use `canary` for bleeding-edge features
 - Or specify exact version: `14.0.0`, `15.0.0`
 
 ### Admin Dashboard
+
 - Review AUTH_SETUP.md before deployment
 - Implement proper session management
 - Remove development fallbacks in production
 - Setup email service for password delivery
 
 ### Testing
+
 - Run unit tests: `yarn test`
 - Run e2e tests: `yarn test:e2e`
 - Add tests as you build features
@@ -321,18 +340,21 @@ yarn remove bcrypt nedb @types/bcrypt @types/nedb
 ## Resources & Documentation
 
 ### Official Documentation
+
 - [Next.js](https://nextjs.org/docs)
 - [shadcn/ui](https://ui.shadcn.com)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [TypeScript](https://www.typescriptlang.org/docs)
 
 ### Testing Frameworks
+
 - [Vitest](https://vitest.dev)
 - [Playwright](https://playwright.dev)
 - [Jest](https://jestjs.io)
 - [Cypress](https://www.cypress.io)
 
 ### Authentication
+
 - [NextAuth.js](https://next-auth.js.org)
 - [Clerk](https://clerk.com)
 - [Iron Session](https://github.com/vvo/iron-session)
