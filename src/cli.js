@@ -9,6 +9,7 @@ import { setupInfra } from "./commands/infra.js";
 import { setupUnitTestFramework } from "./commands/unit-test-case.js";
 import { setupEndToEndTestFramework } from "./commands/e2e-test-case.js";
 import { showEndInstructions } from "./commands/endInstructions.js";
+import { showHelp, showVersion } from "./commands/help.js";
 
 const parseArgs = () => {
   const args = process.argv;
@@ -16,11 +17,25 @@ const parseArgs = () => {
     isAdmin: args.includes("--admin") || args.includes("-a"),
     noGit: args.includes("--no-git"),
     tests: args.includes("--tests") || args.includes("-t"),
+    help: args.includes("--help") || args.includes("-h"),
+    version: args.includes("--version") || args.includes("-v"),
   };
 };
 
 export const run = async () => {
-  const { isAdmin, noGit, tests } = parseArgs();
+  const { isAdmin, noGit, tests, help, version } = parseArgs();
+
+  // Handle --help flag
+  if (help) {
+    showHelp();
+    process.exit(0);
+  }
+
+  // Handle --version flag
+  if (version) {
+    showVersion();
+    process.exit(0);
+  }
 
   process.on("SIGINT", () => {
     console.log("\nExiting CLI...");
