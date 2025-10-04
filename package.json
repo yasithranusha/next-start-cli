@@ -15,7 +15,8 @@
     "next-start-cli": "./src/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "help": "node src/index.js --help"
   },
   "dependencies": {
     "chalk": "^5.4.1",
